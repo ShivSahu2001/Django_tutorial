@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block start %}
+    <h1>This is Receipe Page</h1>
+    <a href="/">Home</a>
+    <a href="/about/">About Us</a>
+    <a href="/contact/">Contact Us</a>
+
+    <div class="container mt-5">
+        <form class="col-6 mx-auto shadow-lg p-4 rounded card" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>Add Receipe</h2>
+            <hr>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Receipe Name</label>
+              <input type="text" class="form-control" name="receipeName" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Receipe Description</label>
+              <textarea class="form-control" name="receipeDesc" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputImage1" class="form-label">Receipe Image</label>
+              <input type="file" class="form-control" name="receipeImage" required>
+            </div>
+            
+            <button type="submit" class="btn btn-warning">Add Receipe</button>
+          </form>
+    </div>
+
+    {% endblock %}

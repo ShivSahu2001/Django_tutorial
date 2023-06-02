@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block start %}
+    <h1>Hey Django server is running on port 5000</h1>
+    <h2>Home Page</h2>
+
+    <!-- not good practice -->
+    <a href="/about/">About Us</a>
+    <a href="/contact/">Contact Us</a>
+
+    <!-- {{peoples}} -->
+
+    <table border="1" style="width: 100%;">
+
+        <tr>
+            <th>Sr.no</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Can Vote</th>
+        </tr>
+
+        {% for people in peoples %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{people.name}}</td>
+            <td>{{people.age}}</td>
+            <td>{% if people.age >= 18 %}
+                👍
+                {% else %}
+                👎
+                {% endif %}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+        
+    </table>
+
+    {{text|truncatechars:80}}
+
+    <p>
+        {% if "orange" in colors %}
+            Yes Available
+            {% elif "blue" in colors %}
+              Blue is Available
+            {% else %}
+            Not Available
+        {% endif %}
+    </p>
+
+
+
+    <script>
+        console.log("Hey Django!")
+    </script>
+ {% endblock %}
