@@ -25,6 +25,46 @@
             
             <button type="submit" class="btn btn-warning">Add Receipe</button>
           </form>
+
+          <div class="mt-5">
+            <div class="mx-auto col-6">
+              <form>
+              <div class="mb-3 d-flex">
+                <label for="exampleInputEmail1" class="form-label">Search Receipe</label>
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="mysearch"> 
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <!-- {{receipes}} -->
+
+          <table class="table mb-5 mt-5  mx-auto">
+            <thead>
+              <tr>
+                <th scope="col">Sr.no</th>
+                <th scope="col">Receipe Name</th>
+                <th scope="col">Receipe Description</th>
+                <th scope="col">Receipe Image</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {% for receipe in receipes %}
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{receipe.receipeName}}</td>
+                <td>{{receipe.receipeDescription}}</td>
+                <td ><img src="/media/{{receipe.receipeImage}}" alt="receipeImage" style="width: 10%; height: 10%;"></td>
+                <td>
+                  <a href="/deletereceipe/{{receipe.id}}/" class="btn btn-danger">Delete</a>
+                  <a href="/updatereceipe/{{receipe.id}}/" class="btn btn-warning m-2">Update</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
     </div>
 
     {% endblock %}

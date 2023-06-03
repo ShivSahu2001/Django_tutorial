@@ -18,11 +18,24 @@ from django.contrib import admin
 from django.urls import path
 from home.views import *
 from vegetable.views import *
+from django.conf.urls.static import static
+from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path("", home, name="home"),
     path("contact/",contactPage, name="contactPage"),
     path("about/",aboutPage, name="aboutPage"),
     path("receipes/", receipes, name="receipes"),
+    # Dynamic Url --> <id>
+    path("deletereceipe/<id>/", deleteReceipe, name="Deletereceipes"),
+    path("updatereceipe/<id>/", updateReceipe, name="Updatereceipes"),
 
     path("admin/", admin.site.urls),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns = urlpatterns + static(settings.MEDIA_URL,
+                                       document_root = settings.MEDIA_ROOT)
+
+urlpatterns = urlpatterns + staticfiles_urlpatterns()
