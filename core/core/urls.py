@@ -29,6 +29,9 @@ urlpatterns = [
     # Dynamic Url --> <id>
     path("deletereceipe/<id>/", deleteReceipe, name="Deletereceipes"),
     path("updatereceipe/<id>/", updateReceipe, name="Updatereceipes"),
+    path("login/",loginPage, name="LoginPage"),
+    path("logout/",logoutPage, name="LogoutPage"),
+    path("register/",registerPage, name="RegisterPage"),
 
     path("admin/", admin.site.urls),
 ]
