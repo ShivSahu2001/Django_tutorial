@@ -32,6 +32,8 @@ urlpatterns = [
     path("login/",loginPage, name="LoginPage"),
     path("logout/",logoutPage, name="LogoutPage"),
     path("register/",registerPage, name="RegisterPage"),
+    path("students/",getStudents, name="StudentPage"),
+    
 
     path("admin/", admin.site.urls),
 ]
