@@ -14,3 +14,56 @@ class Receipe(models.Model):
     receipeDescription = models.TextField()
     receipeImage = models.ImageField(upload_to="receipe")
     receipeViewCount = models.IntegerField(default=1)
+
+
+class Department(models.Model):
+    department = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.department
+
+    class Meta:
+        ordering = ['department']
+
+class StudentID(models.Model):
+    studentId = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.studentId
+    
+class Subject(models.Model):
+    subjectName = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.subjectName
+
+class Student(models.Model):
+    department = models.ForeignKey(Department, related_name="depart", on_delete=models.CASCADE)
+    studentId = models.OneToOneField(StudentID, related_name="studentid", on_delete=models.CASCADE)
+    studentName = models.CharField(max_length=100)
+    studentEmail = models.EmailField(unique=True)
+    studentAge = models.IntegerField(default=1)
+    studentAddress = models.TextField()
+
+    
+    def __str__(self) -> str:
+        return self.studentName
+
+    class Meta:
+        # ordering means --> it will sort according studentName in ascending order
+        # if you want in descending order then do '-studentName'
+        ordering = ['studentName']
+        # verbose_name --> table will be save with the name "student"
+        verbose_name = "student"
+
+class SubjectMarks(models.Model):
+    student = models.ForeignKey(Student, related_name="studentmarks", on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    marks = models.IntegerField()
+
+    def __str__(self) -> str:
+        return f"{self.student.studentName} has {self.subject.subjectName}"
+
+    class Meta:
+        # unique_together --> one unique student have one each unique subjects
+        unique_together = ['student', 'subject']

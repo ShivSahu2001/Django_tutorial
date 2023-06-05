@@ -42,3 +42,19 @@ car.save()
 
 To Delete Data
 Car.objects.get(id=1).delete()
+
+To create admin username and password we hit the command:
+    --> python manage.py createsuperuser
+
+Aggregate --> used to query on a  single column
+Student.objects.aggregate(Min('studentAge')) 
+
+Annotate --> used to make query on multiple columns
+student = Student.objects.values('studentAge').annotate(Count('studentAge'))
+O/P:  [{'studentAge': 18, 'studentAge__count': 11}, {'studentAge': 19, 'studentAge__count': 21}, {'studentAge': 20, 'studentAge__count': 17}, {'studentAge': 21, 'studentAge__count': 15}, {'studentAge': 22, 'studentAge__count': 16}, {'studentAge': 23, 'studentAge__count': 9}, {'studentAge': 24, 'studentAge__count': 16}, {'studentAge': 25, 'studentAge__count': 14}]
+
+
+Adding multiple annotation
+------------------------------------------------
+student = Student.objects.values('department', 'studentAge').annotate(Count('department'),Count 
+('studentAge')).values_list()
