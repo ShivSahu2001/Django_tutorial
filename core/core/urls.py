@@ -33,6 +33,7 @@ urlpatterns = [
     path("logout/",logoutPage, name="LogoutPage"),
     path("register/",registerPage, name="RegisterPage"),
     path("students/",getStudents, name="StudentPage"),
+    path("checkMarks/<studentId>/",showMarks, name="showMarks"),
     
 
     path("admin/", admin.site.urls),

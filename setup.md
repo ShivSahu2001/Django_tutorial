@@ -58,3 +58,7 @@ Adding multiple annotation
 ------------------------------------------------
 student = Student.objects.values('department', 'studentAge').annotate(Count('department'),Count 
 ('studentAge')).values_list()
+
+
+ <!--if there is a change in URL everytime we have to change the URL here  -->
+ <!-- {% url 'showMarksPage' student.studentId %} by this way we don't have to change url everytime 'showMarksPage' here name field in urls.py -->

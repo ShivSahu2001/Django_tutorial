@@ -136,10 +136,25 @@ def registerPage(request):
     context = {'page': "Register Page"}
     return render(request, 'register.html', context)
 
+from django.db.models import Q,Sum 
 
 def getStudents(request):
     querySet = Student.objects.all()
-    paginator = Paginator(querySet, 10)  # Show 25 contacts per page.
+
+    # Filter with student name
+    if request.GET.get("search"):
+        search = request.GET.get("search")
+        # querySet = querySet.filter(studentName__icontains = search)
+
+        # For multiple column filter
+        querySet = querySet.filter(
+            Q(studentName__icontains = search) |
+            Q(department__department__icontains = search) |
+            Q(studentEmail__icontains = search) |
+            Q(studentId__studentId__icontains = search) 
+        )
+
+    paginator = Paginator(querySet, 10)  # Show 10 students per page.
 
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
@@ -147,3 +162,11 @@ def getStudents(request):
     # 'pageObj': page_obj
     context = {'querySet' : page_obj }
     return render(request, 'report/students.html', context)
+
+
+def showMarks(request, studentId):
+    querySet = SubjectMarks.objects.filter(student__studentId__studentId = studentId)
+    totalMarks = querySet.aggregate(totalMarks = Sum('marks'))
+    print(totalMarks)
+    context = {'querySet': querySet, 'totalMarks': totalMarks}
+    return render(request, 'report/showMarks.html', context)
