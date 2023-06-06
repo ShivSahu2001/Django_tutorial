@@ -62,3 +62,7 @@ student = Student.objects.values('department', 'studentAge').annotate(Count('dep
 
  <!--if there is a change in URL everytime we have to change the URL here  -->
  <!-- {% url 'showMarksPage' student.studentId %} by this way we don't have to change url everytime 'showMarksPage' here name field in urls.py -->
+
+ Abstract User class --> is used for taking inbuilt fields of Django and your custom fields
+
+ Abstract Base class --> is used for making all the fields new not according inbuilt Django fields but it has fields like username and password
