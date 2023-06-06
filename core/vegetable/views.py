@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+
+
 from .models import *
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -141,6 +143,12 @@ from django.db.models import Q,Sum
 def getStudents(request):
     querySet = Student.objects.all()
 
+    # rank nased on the marks
+    # ranks = Student.objects.annotate(marks = Sum('studentmarks__marks')).order_by('-marks', '-studentAge', 'studentName')
+
+    # for rank in ranks:
+    #     print(rank.marks)
+
     # Filter with student name
     if request.GET.get("search"):
         search = request.GET.get("search")
@@ -164,9 +172,23 @@ def getStudents(request):
     return render(request, 'report/students.html', context)
 
 
+from vegetable.seed import generateReportCard
 def showMarks(request, studentId):
+    # generateReportCard()
+    # sourcery skip: move-assign-in-block, use-next
     querySet = SubjectMarks.objects.filter(student__studentId__studentId = studentId)
     totalMarks = querySet.aggregate(totalMarks = Sum('marks'))
-    print(totalMarks)
+    # currentRank = -1
+    # ranks = Student.objects.annotate(marks = Sum('studentmarks__marks')).order_by('-marks', '-studentAge', 'studentName')
+
+    # i = 1
+    # for rank in ranks:
+    #     print(rank.studentId)
+    #     if studentId == rank.studentId.studentId:
+    #         currentRank = i
+    #         break
+    #     i = i + 1
+    # print(totalMarks)
+    # , 'currentRank': currentRank
     context = {'querySet': querySet, 'totalMarks': totalMarks}
     return render(request, 'report/showMarks.html', context)

@@ -1,8 +1,10 @@
 {% extends "base.html" %} {% block start %}
 
 <div class="container mt-5">
-    <h2>Rank: </h2>
+    <!-- refering from models -->
+    <h2>Rank:{{querySet.first.student.studentreportcard.first.studentRank}} </h2>
     <h2>Total:{{ totalMarks.totalMarks }} </h2>
+    <h2>Date of Result: {{querySet.first.student.studentreportcard.first.dateOfReportCardGeneration}}</h2>
   <table class="table table-striped table-hover">
    
     <tbody>

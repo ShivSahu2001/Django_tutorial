@@ -67,3 +67,13 @@ class SubjectMarks(models.Model):
     class Meta:
         # unique_together --> one unique student have one each unique subjects
         unique_together = ['student', 'subject']
+
+class ReportCard(models.Model):
+    student = models.ForeignKey(Student, related_name="studentreportcard", on_delete=models.CASCADE)
+    studentRank = models.IntegerField()
+    dateOfReportCardGeneration = models.DateField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['studentRank', 'dateOfReportCardGeneration']
+
+
