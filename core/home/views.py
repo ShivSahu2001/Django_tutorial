@@ -4,7 +4,10 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 
+from vegetable.seed import *
+
 def home(request):
+    seedDb(100)
     # return HttpResponse("<h1>Django Server is running....</h1>")
     peoples = [
         {'name': 'Raj', 'age': 20},

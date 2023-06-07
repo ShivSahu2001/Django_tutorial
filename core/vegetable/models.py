@@ -2,7 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 from django.contrib.auth import get_user_model
+from django.db.models.query import QuerySet
 User = get_user_model()
+
+class StudentManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(isDeleted = False)
 
 class Receipe(models.Model):
     # on_delete= models.CASCADE means If user is deleted then all the corresponding receipe will be deleted of that user
@@ -12,12 +17,14 @@ class Receipe(models.Model):
     # on_delete= models.SET_DEFAULT if user is deleted than we can set default user
 
 
-    # user = models.ForeignKey(User, on_delete= models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete= models.SET_NULL, null=True, blank=True)
     receipeName = models.CharField(max_length=100)
     receipeDescription = models.TextField()
     receipeImage = models.ImageField(upload_to="receipe")
     receipeViewCount = models.IntegerField(default=1)
+    
 
+  
 
 class Department(models.Model):
     department = models.CharField(max_length=100)
@@ -47,6 +54,14 @@ class Student(models.Model):
     studentEmail = models.EmailField(unique=True)
     studentAge = models.IntegerField(default=1)
     studentAddress = models.TextField()
+    isDeleted = models.BooleanField(default=False)
+
+      # By default Model Manager
+    #   This will filter the (isDeleted = True) rows. and show the results 
+    objects = StudentManager()
+
+    # It will show all the rows including (is_deleted=True) field also
+    adminObjects = models.Manager()
 
     
     def __str__(self) -> str:
