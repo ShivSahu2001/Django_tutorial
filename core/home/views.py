@@ -1,13 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 # Create your views here.
 
 from django.http import HttpResponse
 
 from vegetable.seed import *
+from .utils import sendMailToUser
+
+def sendEmail(request):
+    print("sent...")
+    sendMailToUser()
+    context = {'page': 'Send Mail'}
+    return render(request, "sendMail.html", context )
 
 def home(request):
-    seedDb(100)
+    # seedDb(100)
     # return HttpResponse("<h1>Django Server is running....</h1>")
     peoples = [
         {'name': 'Raj', 'age': 20},

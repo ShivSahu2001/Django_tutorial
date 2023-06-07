@@ -23,6 +23,7 @@ from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path("", home, name="home"),
+    path("sendMail/", sendEmail, name="sendMail"),
     path("contact/",contactPage, name="contactPage"),
     path("about/",aboutPage, name="aboutPage"),
     path("receipes/", receipes, name="receipes"),
